@@ -1,5 +1,10 @@
 package assetfs
 
+import (
+	"fmt"
+	"runtime/debug"
+)
+
 // Interface assetfs interface
 type Interface interface {
 	PrependPath(path string) error
@@ -12,4 +17,21 @@ type Interface interface {
 }
 
 // AssetFS default assetfs
-var AssetFS Interface = &AssetFileSystem{}
+var assetFS Interface = &AssetFileSystem{}
+var used bool
+
+// AssetFS get AssetFS
+func AssetFS() Interface {
+	used = true
+	return assetFS
+}
+
+// SetAssetFS set assetfs
+func SetAssetFS(fs Interface) {
+	if used {
+		fmt.Println("AssetFS is used before overwrite it")
+		debug.PrintStack()
+	}
+
+	assetFS = fs
+}
