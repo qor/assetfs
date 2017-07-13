@@ -29,7 +29,7 @@ func AssetFS() Interface {
 // SetAssetFS set assetfs
 func SetAssetFS(fs Interface) {
 	if used {
-		fmt.Println("AssetFS is used before overwrite it")
+		fmt.Println("WARNING: AssetFS is used before overwrite it!")
 		debug.PrintStack()
 	}
 
